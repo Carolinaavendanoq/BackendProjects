@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Control</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <a th:href="@{/add}">Create customer</a>
+    <br>
+    <div th:if="${customers != null and !customers.empty}">
+        <table border="1">
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.firstName}"></td>
+                <td th:text="${customer.lastName}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.phone}"></td>
+                <td><a th:href="@{/edit/} + ${customer.customerId}" th:text="Edit"></a></td>
+                <td><a th:href="@{/delete(customerId=${customer.customerId})}" th:text="Delete"></a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
