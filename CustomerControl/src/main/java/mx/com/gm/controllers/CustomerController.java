@@ -1,10 +1,12 @@
 package mx.com.gm.controllers;
 
+import jakarta.validation.Valid;
 import mx.com.gm.entities.Customer;
 import mx.com.gm.services.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,7 +28,10 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String save(Customer customer){
+    public String save(@Valid Customer customer, Errors errors){
+        if (errors.hasErrors()) {
+            return "edit";
+        }
         iCustomerService.save(customer);
         return "redirect:/";
     }

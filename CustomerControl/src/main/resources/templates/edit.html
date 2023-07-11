@@ -5,25 +5,30 @@
     <title>Customer Info</title>
 </head>
 <body>
-    <h1>Customer info</h1>
-    <a th:href="@{/}">Go back</a>
+    <header th:replace="/layouts/template :: header"></header>
+    <h2>[[#{customer.form}]]</h2>
+    <a th:href="@{/}">[[#{action.goBack}]]</a>
     <br>
     <form th:action="@{/save}" method="post" th:object="${customer}" >
         <input type="hidden" name="customerId" th:field="*{customerId}">
 
-        <label for="firstName">First Name:</label>
+        <label for="firstName">[[#{customer.firstName}]]:</label>
         <input type="text" name="firstName" th:field="*{firstName}">
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
         <br>
-        <label for="lastName">Last Name:</label>
+        <label for="lastName">[[#{customer.lastName}]]:</label>
         <input type="text" name="lastName" th:field="*{lastName}">
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
         <br>
-        <label for="email">Email:</label>
+        <label for="email">[[#{customer.email}]]:</label>
         <input type="email" name="email" th:field="*{email}">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
         <br>
-        <label for="phone">Phone:</label>
+        <label for="phone">[[#{customer.phone}]]:</label>
         <input type="tel" name="phone" th:field="*{phone}">
         <br>
-        <input type="submit" name="save" value="Save">
+        <input type="submit" name="save" th:value="#{action.save}">
     </form>
+    <footer th:replace="/layouts/template :: footer"></footer>
 </body>
 </html>
